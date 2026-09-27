@@ -1,57 +1,51 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import RevealWrapper from "@/components/ui/RevealWrapper";
-import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative w-full py-24 md:py-32">
+    <footer className="relative w-full border-t border-line bg-ink py-16 md:py-24">
       <RevealWrapper className="portfolio-grid-container">
-        <div className="grid grid-cols-12 gap-8 items-start mb-20">
-          <div className="col-span-12 lg:col-span-8 space-y-6">
-            <span className="eyebrow text-accent">Initiate a Project</span>
-            <h2 className="headline-display text-paper">
-              Let&apos;s cut something remarkable.
-            </h2>
-            <p className="max-w-xl text-paper-dim text-lg">
-              Booking select projects for Q2/Q3 2026. Send your rough cuts, treatment decks, or project briefs.
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-12">
+          {/* Left: Wordmark / Logo + Copyright line */}
+          <div className="space-y-3">
+            <Link
+              href="#"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="group inline-flex items-center gap-2.5 font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-paper transition-opacity duration-200 hover:opacity-80"
+              aria-label="DO Originals Home"
+            >
+              <span>DO ORIGINALS</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125" />
+            </Link>
+
+            <p className="font-mono text-[11px] uppercase tracking-wider text-paper-dim/80">
+              © {new Date().getFullYear()} DO Originals. All rights reserved.
             </p>
-            <div className="pt-2">
-              <MagneticButton
-                href="mailto:contact@do-originals.com"
-                className="inline-flex items-center justify-center border border-accent bg-accent/10 px-8 py-4 text-sm font-medium uppercase tracking-widest text-paper transition-all duration-300 hover:bg-accent hover:text-paper"
-              >
-                contact@do-originals.com
-              </MagneticButton>
-            </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-4 border-t lg:border-t-0 lg:border-l border-line pt-8 lg:pt-0 lg:pl-8 space-y-8">
-            <div className="space-y-2">
-              <span className="eyebrow text-paper-dim">Direct</span>
-              <p className="text-paper text-sm">studio@do-originals.com</p>
-            </div>
-            <div className="space-y-2">
-              <span className="eyebrow text-paper-dim">Socials</span>
-              <div className="flex gap-4 text-sm text-paper-dim">
-                <a href="#instagram" className="hover:text-accent transition-colors">Instagram</a>
-                <span>/</span>
-                <a href="#youtube" className="hover:text-accent transition-colors">YouTube</a>
-                <span>/</span>
-                <a href="#vimeo" className="hover:text-accent transition-colors">Vimeo</a>
-              </div>
-            </div>
-          </div>
-        </div>
+          {/* Right: Instagram + YouTube only (as small text labels with hover-underline) */}
+          <div className="flex items-center gap-8 sm:gap-10">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs sm:text-sm uppercase tracking-[0.16em] text-paper-dim transition-colors duration-200 hover:text-paper relative py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+            >
+              Instagram
+            </a>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between border-t border-line pt-8 gap-4">
-          <p className="text-xs text-paper-dim tracking-wider uppercase">
-            © {new Date().getFullYear()} DO Originals. All rights reserved.
-          </p>
-          <p className="text-xs text-paper-dim">
-            Crafted with Next.js 16 • Tailwind CSS v4 • Framer Motion
-          </p>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-xs sm:text-sm uppercase tracking-[0.16em] text-paper-dim transition-colors duration-200 hover:text-paper relative py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+            >
+              YouTube
+            </a>
+          </div>
         </div>
       </RevealWrapper>
     </footer>
