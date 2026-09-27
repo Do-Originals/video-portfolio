@@ -15,6 +15,10 @@
 }
 
 /* Global film-grain overlay & selection */
+html {
+  scroll-behavior: smooth;
+}
+
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-paper);

@@ -6,7 +6,7 @@ import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function Hero() {
   return (
-    <section className="relative w-full border-b border-line py-24 md:py-36">
+    <section id="reels" className="relative w-full border-b border-line pt-32 pb-24 md:pt-44 md:pb-36">
       <RevealWrapper className="portfolio-grid-container">
         <div className="grid grid-cols-12 gap-6 items-start">
           {/* Asymmetric composition: 8 cols for main editorial headline */}

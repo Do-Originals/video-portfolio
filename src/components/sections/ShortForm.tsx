@@ -5,7 +5,7 @@ import RevealWrapper from "@/components/ui/RevealWrapper";
 
 export default function ShortForm() {
   return (
-    <section id="short-form" className="relative w-full border-b border-line py-24 md:py-32">
+    <section id="work" className="relative w-full border-b border-line py-24 md:py-32">
       <RevealWrapper className="portfolio-grid-container">
         <div className="grid grid-cols-12 gap-6 items-end mb-12">
           <div className="col-span-12 md:col-span-8 space-y-4">
