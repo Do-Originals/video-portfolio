@@ -20,7 +20,7 @@ export default function Hero() {
 
   return (
     <section
-      id="reels"
+      id="top"
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-ink pt-28 pb-16 md:pt-0 md:pb-0"
     >
       {/* Right 55-60% Viewport: Background Video with Ken Burns Scale & Dark Gradient */}
