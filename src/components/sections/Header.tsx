@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const NAV_LINKS = [
   { name: "Work", href: "#work", index: "01" },
@@ -11,6 +12,9 @@ const NAV_LINKS = [
   { name: "About", href: "#about", index: "03" },
   { name: "Contact", href: "#contact", index: "04" },
 ];
+
+const WHATSAPP_LINK =
+  "https://wa.me/919867904334?text=Hi%20DO%20Originals,%20I'm%20interested%20in%20discussing%20a%20video%20project";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,14 +82,17 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Far Right: Compact MagneticButton CTA (Desktop) + Mobile Toggle */}
+          {/* Far Right: Compact MagneticButton WhatsApp CTA (Desktop) + Mobile Toggle */}
           <div className="flex items-center gap-4">
             <div className="hidden sm:inline-block">
               <MagneticButton
-                href="#contact"
-                className="eyebrow inline-flex items-center justify-center border border-line bg-paper/5 px-4 py-2 text-paper transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent"
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group eyebrow inline-flex items-center gap-2 rounded-full border border-line bg-paper/5 px-4 py-2 text-paper transition-all duration-300 hover:border-emerald-500/60 hover:bg-emerald-500/10 hover:text-paper"
               >
-                Let&apos;s talk
+                <FaWhatsapp className="text-sm text-emerald-400 transition-transform duration-200 group-hover:scale-115" />
+                <span>Let&apos;s talk</span>
               </MagneticButton>
             </div>
 
@@ -198,16 +205,33 @@ export default function Header() {
             >
               <div className="space-y-1">
                 <span className="eyebrow text-paper-dim">Direct Inquiry</span>
-                <p className="font-body text-sm text-paper">contact@do-originals.com</p>
+                <a
+                  href="mailto:dooriginals08@gmail.com"
+                  className="block font-body text-sm text-paper hover:text-accent transition-colors"
+                >
+                  dooriginals08@gmail.com
+                </a>
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-paper-dim hover:text-emerald-400 transition-colors"
+                >
+                  <FaWhatsapp className="text-xs text-emerald-400" />
+                  <span>+91 98679 04334</span>
+                </a>
               </div>
 
               <div className="pt-2">
                 <MagneticButton
-                  href="#contact"
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={closeMenu}
-                  className="w-full inline-flex items-center justify-center border border-accent bg-accent/10 py-3.5 text-center text-xs uppercase tracking-[0.15em] font-medium text-paper transition-colors hover:bg-accent"
+                  className="w-full inline-flex items-center justify-center gap-2.5 rounded-full border border-emerald-500/50 bg-emerald-500/10 py-3.5 text-center text-xs uppercase tracking-[0.15em] font-medium text-paper transition-colors hover:bg-emerald-500/20"
                 >
-                  Let&apos;s talk
+                  <FaWhatsapp className="text-base text-emerald-400" />
+                  <span>Chat on WhatsApp</span>
                 </MagneticButton>
               </div>
             </motion.div>

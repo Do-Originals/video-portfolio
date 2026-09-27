@@ -1,155 +1,141 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import RevealWrapper from "@/components/ui/RevealWrapper";
-import MagneticButton from "@/components/ui/MagneticButton";
+import { FaWhatsapp } from "react-icons/fa6";
+import { FiMail } from "react-icons/fi";
+
+interface TeamMember {
+  name: string;
+  role: string;
+  specialty: string;
+  image: string;
+}
+
+const TEAM_MEMBERS: TeamMember[] = [
+  {
+    name: "Omkar Potphode",
+    role: "Founder & Lead Editor",
+    specialty: "Editorial Pacing • Retention Architecture",
+    image: "/team/team-1.jpg",
+  },
+  {
+    name: "Priya Sharma",
+    role: "Creative Director",
+    specialty: "Visual Direction • Cinematic Framing",
+    image: "/team/team-2.jpg",
+  },
+  {
+    name: "Rohan Varma",
+    role: "Senior Motion Lead",
+    specialty: "3D Animation • Kinetic Typography",
+    image: "/team/team-3.jpg",
+  },
+  {
+    name: "Kabir Sen",
+    role: "Sound & Color Architect",
+    specialty: "Tactile Foley • ACES Color Science",
+    image: "/team/team-4.jpg",
+  },
+];
 
 export default function About() {
   return (
     <section
       id="about"
-      className="relative w-full border-b border-line py-28 md:py-36 bg-ink overflow-hidden"
+      className="relative w-full border-b border-line py-20 md:py-28 bg-ink overflow-hidden"
     >
-      <div className="portfolio-grid-container">
-        <div className="grid grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: About Narrative (leads entrance by ~150ms) */}
-          <RevealWrapper
-            delay={0}
-            className="col-span-12 lg:col-span-6 xl:col-span-5 space-y-8"
-          >
-            <div className="flex items-center gap-3">
-              <span className="eyebrow text-accent">03 / ABOUT</span>
-              <span className="h-px w-8 bg-accent/40" />
-            </div>
+      {/* Subtle ambient background glow */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-72 w-full max-w-4xl rounded-full bg-accent/5 blur-[120px]" />
 
-            <h2 className="headline-display text-paper">
-              We edit to keep eyes locked, not just to{" "}
-              <span className="italic font-light text-paper">fill a timeline.</span>
-            </h2>
+      <div className="portfolio-grid-container relative z-10 space-y-12 md:space-y-16">
+        {/* Shorter Header Row: Eyebrow, Heading, and Subheading */}
+        <RevealWrapper className="max-w-3xl space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="eyebrow text-accent">03 / THE TEAM</span>
+            <span className="h-px w-8 bg-accent/40" />
+          </div>
 
-            <div className="space-y-4 text-base sm:text-lg text-paper-dim leading-relaxed font-light">
-              <p>
-                We cut high-retention short-form reels and broadcast-grade long-form films for Indian founders, brands, and creators who understand that editing is where raw footage becomes unforgettable rhythm.
-              </p>
-              <p>
-                Based in Dombivli, Mumbai, we handle the entire post-production pipeline—from pacing and tactile sound design to ACES color grading—so your content commands attention across YouTube, Instagram, and commercial broadcast.
-              </p>
-            </div>
+          <h2 className="headline-display text-paper">
+            The minds behind the{" "}
+            <span className="italic font-light text-paper">cut.</span>
+          </h2>
 
-            {/* Disciplines & Core Tooling */}
-            <div className="grid grid-cols-2 gap-6 pt-6 border-t border-line/60">
-              <div className="space-y-1.5">
-                <span className="eyebrow text-paper-dim text-[10px]">
-                  Disciplines
-                </span>
-                <p className="text-sm text-paper font-medium">
-                  Short-Form • Podcasts • Commercials
-                </p>
+          <p className="text-base sm:text-lg text-paper-dim font-light leading-relaxed">
+            Based in Dombivli, Mumbai. We are a focused collective of editors, colorists, and motion designers dedicated to transforming raw footage into high-retention cinematic rhythm.
+          </p>
+
+          {/* Direct Email & WhatsApp Quick-Action Pills */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+            <a
+              href="mailto:dooriginals08@gmail.com"
+              className="group inline-flex items-center gap-2 rounded-full border border-line bg-paper/[0.04] px-4 py-2 font-mono text-xs uppercase tracking-wider text-paper transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent"
+              aria-label="Email DO Originals"
+            >
+              <FiMail className="text-sm text-accent group-hover:scale-110 transition-transform duration-200" />
+              <span>dooriginals08@gmail.com</span>
+            </a>
+
+            <a
+              href="https://wa.me/919867904334?text=Hi%20DO%20Originals,%20I'm%20interested%20in%20working%20together"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full border border-line bg-paper/[0.04] px-4 py-2 font-mono text-xs uppercase tracking-wider text-paper transition-all duration-300 hover:border-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-400"
+              aria-label="WhatsApp DO Originals"
+            >
+              <FaWhatsapp className="text-sm text-emerald-400 group-hover:scale-110 transition-transform duration-200" />
+              <span>+91 98679 04334</span>
+            </a>
+          </div>
+        </RevealWrapper>
+
+        {/* 4 Square Team Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {TEAM_MEMBERS.map((member, idx) => (
+            <RevealWrapper
+              key={member.name}
+              delay={idx * 0.08}
+              className="group flex flex-col space-y-4"
+            >
+              {/* 1:1 Square Image Container */}
+              <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-line bg-paper/[0.02] shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-300 group-hover:border-accent/40">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover filter grayscale-[15%] transition-all duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                />
+
+                {/* Subtle vignette gradient at base of square */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
+
+                {/* Corner accent marker */}
+                <div className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-accent/70 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-125" />
               </div>
-              <div className="space-y-1.5">
-                <span className="eyebrow text-paper-dim text-[10px]">
-                  Post Pipeline
-                </span>
-                <p className="text-sm text-paper font-medium">
-                  DaVinci Resolve • Premiere • After Effects
-                </p>
-              </div>
-            </div>
-          </RevealWrapper>
 
-          {/* Right Column: Direct Contact Block (staggered entrance by +150ms) */}
-          <RevealWrapper
-            delay={0.15}
-            className="col-span-12 lg:col-span-6 xl:col-span-7 lg:border-l lg:border-line/80 lg:pl-12 xl:pl-16 space-y-10"
-          >
-            <div id="contact" className="space-y-3 pt-2">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow text-accent">04 / DIRECT CONTACT</span>
-                <span className="h-px w-8 bg-accent/40" />
-              </div>
-              <h3 className="font-display text-3xl sm:text-4xl font-light text-paper tracking-tight">
-                Let&apos;s talk about your next cut.
-              </h3>
-              <p className="text-sm sm:text-base text-paper-dim leading-relaxed">
-                Send your rough cuts, treatment decks, or project briefs directly. We respond within 24 hours.
-              </p>
-            </div>
-
-            {/* Large Tappable Email Link */}
-            <div className="space-y-2">
-              <span className="eyebrow text-paper-dim/80 text-[11px]">
-                Primary Email
-              </span>
-              <div>
-                <a
-                  href="mailto:omkar03potphode@gmail.com"
-                  className="group inline-block font-display text-2xl sm:text-3xl xl:text-4xl font-normal text-paper transition-colors duration-300 hover:text-accent"
-                >
-                  <span className="relative pb-1 border-b border-paper/30 transition-all duration-300 group-hover:border-accent">
-                    omkar03potphode@gmail.com
+              {/* Member Details */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-lg sm:text-xl text-paper font-normal transition-colors duration-200 group-hover:text-accent">
+                    {member.name}
+                  </h3>
+                  <span className="font-mono text-[10px] text-paper-dim/60">
+                    0{idx + 1}
                   </span>
-                  <span className="inline-block ml-3 text-accent transition-transform duration-200 group-hover:translate-x-1.5">
-                    ↗
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            {/* Direct Phone / WhatsApp Block */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-              <div className="space-y-2">
-                <span className="eyebrow text-paper-dim/80 text-[11px]">
-                  WhatsApp & Phone
-                </span>
-                <div>
-                  <a
-                    href="https://wa.me/919137000000?text=Hi%20DO%20Originals,%20I%20have%20a%20video%20project%20inquiry"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-base sm:text-lg font-medium text-paper hover:text-accent transition-colors"
-                  >
-                    <span>+91 91370 00000</span>
-                    <span className="eyebrow text-accent text-[10px] border border-accent/40 bg-accent/10 px-2 py-0.5 rounded-full">
-                      WhatsApp
-                    </span>
-                  </a>
                 </div>
-              </div>
 
-              {/* Location Tag */}
-              <div className="space-y-2">
-                <span className="eyebrow text-paper-dim/80 text-[11px]">
-                  Studio Location
-                </span>
-                <p className="text-base sm:text-lg font-medium text-paper flex items-center gap-2">
-                  <span>Dombivli, Mumbai</span>
-                  <span className="text-xs text-paper-dim font-normal">• Available Worldwide</span>
+                <p className="font-mono text-xs uppercase tracking-wider text-accent font-medium">
+                  {member.role}
+                </p>
+
+                <p className="text-xs text-paper-dim font-light pt-0.5">
+                  {member.specialty}
                 </p>
               </div>
-            </div>
-
-            {/* Availability Indicator & Instant CTA */}
-            <div className="pt-6 border-t border-line/60 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-              <div className="flex items-center gap-2.5">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
-                </span>
-                <span className="text-xs text-paper-dim font-mono tracking-wide">
-                  Accepting select projects for Q2 / Q3 2026
-                </span>
-              </div>
-
-              <MagneticButton
-                href="https://wa.me/919137000000?text=Hi%20DO%20Originals,%20I%20have%20a%20video%20project%20inquiry"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="eyebrow inline-flex items-center justify-center border border-accent bg-accent/10 px-6 py-3 text-xs uppercase tracking-[0.16em] text-paper transition-all duration-300 hover:bg-accent hover:text-white"
-              >
-                Chat on WhatsApp
-              </MagneticButton>
-            </div>
-          </RevealWrapper>
+            </RevealWrapper>
+          ))}
         </div>
       </div>
     </section>

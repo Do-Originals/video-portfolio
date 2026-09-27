@@ -6,7 +6,7 @@ import { useInView } from "framer-motion";
 
 interface ReelItem {
   id: string;
-  category: "Politics" | "Face" | "Info" | "AI";
+  category: "Politics" | "Face" | "Info" | "AI" | "Clients";
   categoryCode: string;
   title: string;
   hook: string;
@@ -114,9 +114,33 @@ const REELS: ReelItem[] = [
     fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-animation-43098-large.mp4",
     poster: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
   },
+  {
+    id: "clients-1",
+    category: "Clients",
+    categoryCode: "09",
+    title: "E-Commerce Brand Campaign",
+    hook: "Direct-response pacing lifting ROAS by 3.4x in the first 7 days.",
+    metrics: "2.1M Views",
+    duration: "0:30",
+    videoSrc: "/videos/reels/clients-1.mp4",
+    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-green-screen-42353-large.mp4",
+    poster: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: "clients-2",
+    category: "Clients",
+    categoryCode: "10",
+    title: "D2C Founder Story & Launch",
+    hook: "Raw documentary pacing turned 10K waitlist into paying customers.",
+    metrics: "1.8M Views",
+    duration: "0:45",
+    videoSrc: "/videos/reels/clients-2.mp4",
+    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-working-at-a-laptop-in-an-office-42880-large.mp4",
+    poster: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
-const CATEGORIES = ["All", "Politics", "Face", "Info", "AI"] as const;
+const CATEGORIES = ["All", "Politics", "Face", "Info", "AI", "Clients"] as const;
 
 function ReelTile({ item }: { item: ReelItem }) {
   const cardRef = useRef<HTMLDivElement>(null);
