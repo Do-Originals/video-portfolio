@@ -22,7 +22,7 @@ const PROJECTS: LongFormProject[] = [
     id: "podcast-1",
     category: "Podcast",
     categoryLabel: "Podcast",
-    tag: "01 / EPISODIC & MULTI-CAM",
+    tag: "EPISODIC & MULTI-CAM",
     title: "The Vanguard Chronicles",
     description:
       "Full-season post-production for an episodic boardroom podcast, transforming unscripted multi-cam dialogues into tightly paced narrative arcs.",
@@ -38,7 +38,7 @@ const PROJECTS: LongFormProject[] = [
     id: "promotional-1",
     category: "Promotional",
     categoryLabel: "Promotional",
-    tag: "02 / COMMERCIAL & BRAND FILM",
+    tag: "COMMERCIAL & BRAND FILM",
     title: "Kromatik: Precision Timepieces",
     description:
       "A high-impact cinematic commercial capturing micro-mechanical engineering with ACES film-emulated color grading and tactile sound design.",
@@ -54,7 +54,7 @@ const PROJECTS: LongFormProject[] = [
     id: "news-1",
     category: "News",
     categoryLabel: "News & Broadcast",
-    tag: "03 / INVESTIGATIVE & DOCU-JOURNALISM",
+    tag: "INVESTIGATIVE & DOCU-JOURNALISM",
     title: "The Silicon Corridor",
     description:
       "Fast-turnaround investigative reporting packaged with network broadcast pacing, historical archival reconstruction, and fact-checking motion graphics.",
@@ -70,7 +70,7 @@ const PROJECTS: LongFormProject[] = [
     id: "graphics-1",
     category: "Graphics",
     categoryLabel: "Graphics & Motion Design",
-    tag: "04 / 3D & KINETIC IDENTITY",
+    tag: "3D & KINETIC IDENTITY",
     title: "Neural Stream Broadcast Package",
     description:
       "Complete network motion graphics packaging, including 3D title openers, modular HUD data overlays, and typography toolkits for live broadcasts.",
@@ -86,7 +86,7 @@ const PROJECTS: LongFormProject[] = [
     id: "podcast-2",
     category: "Podcast",
     categoryLabel: "Podcast",
-    tag: "05 / STUDIO BROADCAST",
+    tag: "STUDIO BROADCAST",
     title: "Founders Uncut: Round Table",
     description:
       "Deep-dive interviews cut with television-grade multicam transitions, visual chapter markers, and real-time lower-third citations.",
@@ -102,7 +102,7 @@ const PROJECTS: LongFormProject[] = [
     id: "promotional-2",
     category: "Promotional",
     categoryLabel: "Promotional",
-    tag: "06 / BRAND MANIFESTO",
+    tag: "BRAND MANIFESTO",
     title: "Aura: Electric Supercar Reveal",
     description:
       "High-energy commercial cut with synchronized exhaust transients, hyper-speed transitions, and dynamic speed-ramped camera motion.",
