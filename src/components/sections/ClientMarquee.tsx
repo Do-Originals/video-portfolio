@@ -1,206 +1,96 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 
 interface ClientLogo {
   id: string;
   name: string;
-  symbol: React.ReactNode;
+  logoSrc: string;
 }
 
 const CLIENTS: ClientLogo[] = [
   {
-    id: "apex",
-    name: "APEX MEDIA",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polygon points="12 3 21 20 3 20" />
-        <polyline points="9 15 12 9 15 15" />
-      </svg>
-    ),
+    id: "chatgpt",
+    name: "ChatGPT",
+    logoSrc: "/clients/chatgpt_client.png",
   },
   {
-    id: "vanguard",
-    name: "VANGUARD",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polyline points="4 8 12 16 20 8" />
-        <polyline points="7 4 12 9 17 4" />
-      </svg>
-    ),
+    id: "arok",
+    name: "Arok",
+    logoSrc: "/clients/Arok_client.webp",
   },
   {
-    id: "kromatik",
-    name: "KROMATIK",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 3a9 9 0 0 1 9 9" />
-      </svg>
-    ),
+    id: "knox",
+    name: "Knox",
+    logoSrc: "/clients/knox_client.webp",
   },
   {
-    id: "chronicle",
-    name: "CHRONICLE CO",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <rect x="4" y="4" width="16" height="16" rx="2" />
-        <line x1="8" y1="9" x2="16" y2="9" />
-        <line x1="8" y1="14" x2="13" y2="14" />
-      </svg>
-    ),
+    id: "italian-channel",
+    name: "Italian Channel",
+    logoSrc: "/clients/Italian_channel_client.webp",
   },
   {
-    id: "cinema-craft",
-    name: "CINEMA CRAFT",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <circle cx="12" cy="12" r="9" />
-        <line x1="12" y1="3" x2="12" y2="21" />
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
+    id: "rishab-world",
+    name: "Rishab World",
+    logoSrc: "/clients/rishab_world_client.png",
   },
   {
-    id: "nordic",
-    name: "NORDIC STUDIO",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
-      </svg>
-    ),
+    id: "vercelli",
+    name: "Vercelli",
+    logoSrc: "/clients/vercelli_client.webp",
   },
   {
-    id: "hyperion",
-    name: "HYPERION",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9" />
-      </svg>
-    ),
-  },
-  {
-    id: "aura-labs",
-    name: "AURA LABS",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="6" />
-        <circle cx="12" cy="12" r="2" />
-      </svg>
-    ),
-  },
-  {
-    id: "monolith",
-    name: "MONOLITH",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <rect x="7" y="3" width="10" height="18" rx="1" />
-        <line x1="10" y1="7" x2="14" y2="7" />
-      </svg>
-    ),
-  },
-  {
-    id: "pulse",
-    name: "PULSE AGENCY",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polyline points="2 12 6 12 9 4 15 20 18 12 22 12" />
-      </svg>
-    ),
-  },
-  {
-    id: "equinox",
-    name: "EQUINOX FILMS",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" fillOpacity="0.4" />
-      </svg>
-    ),
-  },
-  {
-    id: "stratum",
-    name: "STRATUM",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-        <line x1="8" y1="18" x2="16" y2="18" />
-      </svg>
-    ),
-  },
-  {
-    id: "kinetica",
-    name: "KINETICA",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polygon points="5 4 15 12 5 20" />
-        <polygon points="12 4 22 12 12 20" />
-      </svg>
-    ),
-  },
-  {
-    id: "veritas",
-    name: "VERITAS NEWS",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <path d="M4 6h16M4 12h16M4 18h10" />
-      </svg>
-    ),
-  },
-  {
-    id: "archetype",
-    name: "ARCHETYPE",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <polygon points="12 2 2 22 22 22" />
-        <line x1="6" y1="15" x2="18" y2="15" />
-      </svg>
-    ),
-  },
-  {
-    id: "sonder",
-    name: "SONDER MEDIA",
-    symbol: (
-      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.263-8-12.356-8-5.096 0-5.096 8 0 8 5.093 0 7.261-8 12.356-8z" />
-      </svg>
-    ),
+    id: "dandj",
+    name: "D&J",
+    logoSrc: "/clients/dandj_client.webp",
   },
 ];
 
 export default function ClientMarquee() {
-  // Seamless loop by repeating the list
-  const marqueeList = [...CLIENTS, ...CLIENTS];
+  // Seamless loop by repeating the list for continuous -50% translateX marquee
+  const base = [...CLIENTS, ...CLIENTS];
+  const marqueeList = [...base, ...base];
 
   return (
-    <section className="relative w-full border-b border-line py-16 md:py-20 bg-ink overflow-hidden">
+    <section className="relative w-full border-y border-white/10 py-20 md:py-28 bg-gradient-to-b from-[#18191e] via-[#22242c] to-[#18191e] overflow-hidden">
+      {/* Refined Dark Gray Ambient Gradients */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(140,145,165,0.12),transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_50%_50%,rgba(255,255,255,0.035),transparent_95%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
       <RevealWrapper>
-        {/* Small Centered Eyebrow Label */}
-        <div className="flex flex-col items-center justify-center space-y-2 mb-10 px-4 text-center">
-          <span className="eyebrow text-paper-dim/80 font-mono tracking-[0.25em]">
-            WORKED WITH
-          </span>
-          <div className="h-px w-6 bg-accent/40" />
+        {/* Centered Eyebrow Label with Accents */}
+        <div className="relative z-10 flex flex-col items-center justify-center space-y-2.5 mb-12 sm:mb-14 px-4 text-center">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-accent/50" />
+            <span className="eyebrow text-accent font-mono text-xs sm:text-sm tracking-[0.3em] uppercase">
+              Trusted By Creators & Brands
+            </span>
+            <span className="h-px w-6 bg-accent/50" />
+          </div>
+          <p className="text-xs sm:text-sm text-paper-dim/70 font-light tracking-wide max-w-sm">
+            Selected channels, founders, and companies we produce for
+          </p>
         </div>
 
         {/* Edge-to-Edge Continuous Marquee Container with Gradient Mask */}
-        <div className="relative w-full overflow-hidden mask-marquee">
-          <div className="animate-marquee items-center gap-12 sm:gap-16 lg:gap-20 py-2">
+        <div className="relative w-full overflow-hidden mask-marquee py-4">
+          <div className="animate-marquee items-center gap-16 sm:gap-24 lg:gap-32 py-6">
             {marqueeList.map((client, index) => (
               <div
                 key={`${client.id}-${index}`}
-                className="group flex items-center gap-3 shrink-0 cursor-default select-none grayscale opacity-45 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:text-paper"
+                className="group flex items-center justify-center shrink-0 cursor-default select-none px-6 sm:px-10 py-3 transition-transform duration-300 hover:scale-110"
               >
-                <div className="text-paper-dim transition-colors duration-300 group-hover:text-accent">
-                  {client.symbol}
-                </div>
-                <span className="font-body text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-paper-dim transition-colors duration-300 group-hover:text-paper">
-                  {client.name}
-                </span>
+                <Image
+                  src={client.logoSrc}
+                  alt={client.name}
+                  width={380}
+                  height={128}
+                  className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[340px] lg:max-w-[380px] object-contain opacity-90 brightness-105 contrast-110 drop-shadow-[0_10px_24px_rgba(0,0,0,0.7)] transition-all duration-300 group-hover:opacity-100 group-hover:scale-105 group-hover:drop-shadow-[0_12px_28px_rgba(214,17,108,0.35)]"
+                />
               </div>
             ))}
           </div>

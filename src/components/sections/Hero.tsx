@@ -52,7 +52,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-ink pt-28 pb-16 lg:py-0"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-ink pt-36 sm:pt-40 md:pt-48 lg:pt-44 pb-20 md:pb-24"
     >
       {/* Background Video: High Opacity with Subtle Soft Blur (Little bit blur) */}
       <div className="absolute inset-0 h-full w-full overflow-hidden pointer-events-none select-none z-0">
@@ -94,7 +94,7 @@ export default function Hero() {
       </div>
 
       {/* Main Composition: Left Content + Right Phone Reel Showcase */}
-      <div className="portfolio-grid-container relative z-10 w-full py-8 lg:py-12">
+      <div className="portfolio-grid-container relative z-10 w-full pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-16">
         <div className="grid grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
           {/* Left Column: Headline & CTA (spans 7 cols) */}
           <div className="col-span-12 lg:col-span-7 xl:col-span-7 space-y-6 md:space-y-8">

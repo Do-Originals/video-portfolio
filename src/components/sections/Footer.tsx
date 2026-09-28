@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 import MagneticButton from "@/components/ui/MagneticButton";
-import { FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa6";
+import { FaInstagram, FaYoutube } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 
 export default function Footer() {
@@ -142,11 +143,16 @@ export default function Footer() {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="group inline-flex items-center gap-2.5 font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-paper transition-opacity duration-200 hover:opacity-80"
+                className="group inline-flex items-center transition-all duration-300 select-none cursor-pointer"
                 aria-label="DO Originals Home"
               >
-                <span>DO ORIGINALS</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125" />
+                <Image
+                  src="/logo-cutout.png"
+                  alt="DO Originals"
+                  width={140}
+                  height={106}
+                  className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
               </Link>
 
               <p className="font-mono text-[11px] uppercase tracking-wider text-paper-dim/80">

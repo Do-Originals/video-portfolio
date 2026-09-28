@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { FaWhatsapp } from "react-icons/fa6";
@@ -9,8 +10,8 @@ import { FaWhatsapp } from "react-icons/fa6";
 const NAV_LINKS = [
   { name: "Work", href: "#work", index: "01" },
   { name: "Reels", href: "#reels", index: "02" },
-  { name: "About", href: "#about", index: "03" },
-  { name: "Contact", href: "#contact", index: "04" },
+  // { name: "About", href: "#about", index: "03" },
+  { name: "Contact", href: "#contact", index: "03" },
 ];
 
 const WHATSAPP_LINK =
@@ -58,15 +59,21 @@ export default function Header() {
         className="fixed top-0 left-0 right-0 z-50 w-full transition-colors will-change-transform"
       >
         <div className="portfolio-grid-container flex items-center justify-between py-5 md:py-6">
-          {/* Logo / Wordmark Left: DO ORIGINALS in Inter, small, wide tracking, uppercase */}
+          {/* Official DO Originals Transparent Logo (No white background, increased height) */}
           <Link
             href="#"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="group flex items-center gap-2.5 font-body text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-paper transition-opacity duration-200 hover:opacity-85"
+            className="group flex items-center transition-transform duration-300 hover:scale-105 select-none cursor-pointer"
             aria-label="DO Originals Home"
           >
-            <span>DO ORIGINALS</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-accent transition-transform duration-300 group-hover:scale-125" />
+            <Image
+              src="/logo-cutout.png"
+              alt="DO Originals"
+              width={200}
+              height={151}
+              priority
+              className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_16px_rgba(214,17,108,0.25)]"
+            />
           </Link>
 
           {/* Desktop Navigation Links inside Transparent Capsule */}
@@ -166,6 +173,17 @@ export default function Header() {
               }}
               className="relative z-10 flex flex-col space-y-6 pt-4"
             >
+              {/* Brand Cue in Mobile Drawer (Transparent Logo) */}
+              <div className="flex items-center pb-3 border-b border-line/30 mb-2">
+                <Image
+                  src="/logo-cutout.png"
+                  alt="DO Originals Logo"
+                  width={140}
+                  height={106}
+                  className="h-12 w-auto object-contain drop-shadow-[0_2px_12px_rgba(214,17,108,0.3)]"
+                />
+              </div>
+
               <span className="eyebrow text-paper-dim">Navigation</span>
 
               {NAV_LINKS.map((link) => (
