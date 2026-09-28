@@ -275,18 +275,19 @@ export default function LongForm() {
             {/* Left-Aligned Headline */}
             <div className="col-span-12 lg:col-span-7 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-accent">02 / LONG FORM PRODUCTION</span>
+                <span className="eyebrow text-accent font-mono">LONG FORM & COMMERCIALS</span>
                 <span className="h-px w-8 bg-accent/40" />
               </div>
               <h2 className="headline-display text-paper">
-                Built for the <span className="italic font-light text-paper">full watch.</span>
+                Videos that tell your{" "}
+                <span className="italic font-light text-paper">business story.</span>
               </h2>
             </div>
 
             {/* Right-Aligned Supporting Copy */}
             <div className="col-span-12 lg:col-span-5 lg:text-right space-y-4">
               <p className="max-w-md lg:ml-auto text-sm sm:text-base text-paper-dim leading-relaxed">
-                Commercials, episodic podcasts, and documentary journalism engineered with considered pacing, complete post suites, and broadcast delivery standards.
+                Podcasts, commercials, and customer showcases that clearly explain what you do, answer buyer questions, and build lasting trust.
               </p>
             </div>
           </div>
