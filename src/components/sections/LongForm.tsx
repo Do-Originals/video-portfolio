@@ -5,7 +5,7 @@ import RevealWrapper from "@/components/ui/RevealWrapper";
 
 interface LongFormProject {
   id: string;
-  category: "Podcast" | "Promotional" | "News";
+  category: "Podcast" | "Commercial" | "News";
   categoryLabel: string;
   tag: string;
   title: string;
@@ -35,9 +35,26 @@ const PROJECTS: LongFormProject[] = [
       "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1600&q=80",
   },
   {
+    id: "commercial-1",
+    category: "Commercial",
+    categoryLabel: "Commercial & Brand Film",
+    tag: "COMMERCIAL & BRAND FILM",
+    title: "Cinematic Brand Commercial",
+    description:
+      "A high-impact commercial engineered to elevate local business credibility, showcase premium products, and convert interest into paying clients.",
+    deliverables: "Commercial Master • Social Cutdowns • Audio Mastering",
+    duration: "01:45 Master",
+    videoSrc:
+      "https://res.cloudinary.com/akjttfwt/video/upload/AQMjMClgiGnboMqYtzD5Mg5Y7YTEibymko8uC8Fna0KH1zssJw1bi5UjK8wIP5hqVFCvTQzNRWD7y_rC2061iBd6fl-t-1eIqIILFSM_rxnjpg.mp4",
+    fallbackSrc:
+      "https://res.cloudinary.com/akjttfwt/video/upload/AQMjMClgiGnboMqYtzD5Mg5Y7YTEibymko8uC8Fna0KH1zssJw1bi5UjK8wIP5hqVFCvTQzNRWD7y_rC2061iBd6fl-t-1eIqIILFSM_rxnjpg.mp4",
+    poster:
+      "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_1200,q_auto,f_auto/AQMjMClgiGnboMqYtzD5Mg5Y7YTEibymko8uC8Fna0KH1zssJw1bi5UjK8wIP5hqVFCvTQzNRWD7y_rC2061iBd6fl-t-1eIqIILFSM_rxnjpg.jpg",
+  },
+  {
     id: "promotional-1",
-    category: "Promotional",
-    categoryLabel: "Promotional",
+    category: "Commercial",
+    categoryLabel: "Commercial & Brand Film",
     tag: "COMMERCIAL & BRAND FILM",
     title: "Kromatik: Precision Timepieces",
     description:
@@ -66,7 +83,6 @@ const PROJECTS: LongFormProject[] = [
     poster:
       "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1600&q=80",
   },
-
   {
     id: "podcast-2",
     category: "Podcast",
@@ -85,8 +101,8 @@ const PROJECTS: LongFormProject[] = [
   },
   {
     id: "promotional-2",
-    category: "Promotional",
-    categoryLabel: "Promotional",
+    category: "Commercial",
+    categoryLabel: "Commercial & Brand Film",
     tag: "BRAND MANIFESTO",
     title: "Aura: Electric Supercar Reveal",
     description:
@@ -101,7 +117,7 @@ const PROJECTS: LongFormProject[] = [
   },
 ];
 
-const CATEGORIES = ["Podcast", "Promotional", "News"] as const;
+const CATEGORIES = ["Podcast", "Commercial", "News"] as const;
 
 function LongFormCard({ project }: { project: LongFormProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);

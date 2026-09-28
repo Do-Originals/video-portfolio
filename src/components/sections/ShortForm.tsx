@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import RevealWrapper from "@/components/ui/RevealWrapper";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { FaVolumeHigh, FaVolumeXmark, FaPlay, FaPause } from "react-icons/fa6";
+import { FaVolumeHigh, FaVolumeXmark, FaPlay } from "react-icons/fa6";
 
 interface ReelItem {
   id: string;
@@ -462,19 +462,11 @@ function ReelTile({ item }: { item: ReelItem }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
         {/* Prominent Middle Play Button (When Stopped / Initial Load) */}
+        {/* Middle Play Button (Fades out after tapping/playing) */}
         {!isPlaying && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/35 backdrop-blur-[1px] transition-all">
+          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-black/35 backdrop-blur-[1px] transition-all duration-300">
             <div className="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white backdrop-blur-md shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-accent group-hover:bg-black/80 group-hover:text-accent">
               <FaPlay className="ml-1 text-lg sm:text-xl" />
-            </div>
-          </div>
-        )}
-
-        {/* Middle Pause Indicator on Hover (When Playing) */}
-        {isPlaying && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/55 text-white backdrop-blur-md shadow-xl">
-              <FaPause className="text-base text-white" />
             </div>
           </div>
         )}
