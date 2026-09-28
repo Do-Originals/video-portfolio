@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import RevealWrapper from "@/components/ui/RevealWrapper";
+import Hls from "hls.js";
 
 interface LongFormProject {
   id: string;
@@ -52,36 +53,38 @@ const PROJECTS: LongFormProject[] = [
       "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_1200,q_auto,f_auto/AQMjMClgiGnboMqYtzD5Mg5Y7YTEibymko8uC8Fna0KH1zssJw1bi5UjK8wIP5hqVFCvTQzNRWD7y_rC2061iBd6fl-t-1eIqIILFSM_rxnjpg.jpg",
   },
   {
-    id: "promotional-1",
+    id: "commercial-2",
     category: "Commercial",
     categoryLabel: "Commercial & Brand Film",
     tag: "COMMERCIAL & BRAND FILM",
-    title: "Kromatik: Precision Timepieces",
+    title: "High-Impact Commercial Campaign",
     description:
-      "A high-impact cinematic commercial capturing micro-mechanical engineering with ACES film-emulated color grading and tactile sound design.",
-    deliverables: "Hero Commercial • Macro Product Finishing • 35mm Emulation",
-    duration: "02:15 Master",
-    videoSrc: "/videos/longform/promotional-1.mp4",
+      "Dynamic commercial storytelling capturing brand identity, emotional engagement, and customer action with television-grade cinematography.",
+    deliverables: "Full 4K Master • Color Grade • Sound Mix",
+    duration: "01:30 Master",
+    videoSrc:
+      "https://stream.mux.com/X2dlDyQJQBzQketuqa1uokTU1tFN8B8W005b01kTNgjdk.m3u8",
     fallbackSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-watchmaker-repairing-a-watch-mechanism-42880-large.mp4",
+      "https://stream.mux.com/X2dlDyQJQBzQketuqa1uokTU1tFN8B8W005b01kTNgjdk.m3u8",
     poster:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1600&q=80",
+      "https://image.mux.com/X2dlDyQJQBzQketuqa1uokTU1tFN8B8W005b01kTNgjdk/thumbnail.jpg?time=2",
   },
   {
-    id: "news-1",
-    category: "News",
-    categoryLabel: "News & Broadcast",
-    tag: "INVESTIGATIVE & DOCU-JOURNALISM",
-    title: "The Silicon Corridor",
+    id: "commercial-3",
+    category: "Commercial",
+    categoryLabel: "Commercial & Brand Film",
+    tag: "PRODUCT SHOWCASE & COMMERCIAL",
+    title: "Precision Product Commercial",
     description:
-      "Fast-turnaround investigative reporting packaged with network broadcast pacing, historical archival reconstruction, and fact-checking motion graphics.",
-    deliverables: "Documentary Feature • Archival Restoration • Lower-Thirds Package",
-    duration: "18:40 Report",
-    videoSrc: "/videos/longform/news-1.mp4",
+      "Macro product cinematography combined with rhythmic sound design and razor-sharp post-production engineered for maximum customer retention.",
+    deliverables: "Commercial Master • Social Cutdowns • Audio Mastering",
+    duration: "01:15 Master",
+    videoSrc:
+      "https://stream.mux.com/MdBUnGJ02WGa7CVatC6RDqc6CY7vvBzPaEmQfsmgjEHo.m3u8",
     fallbackSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-cameraman-filming-a-street-scene-43348-large.mp4",
+      "https://stream.mux.com/MdBUnGJ02WGa7CVatC6RDqc6CY7vvBzPaEmQfsmgjEHo.m3u8",
     poster:
-      "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1600&q=80",
+      "https://image.mux.com/MdBUnGJ02WGa7CVatC6RDqc6CY7vvBzPaEmQfsmgjEHo/thumbnail.jpg?time=2",
   },
   {
     id: "podcast-2",
@@ -100,20 +103,20 @@ const PROJECTS: LongFormProject[] = [
       "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    id: "promotional-2",
-    category: "Commercial",
-    categoryLabel: "Commercial & Brand Film",
-    tag: "BRAND MANIFESTO",
-    title: "Aura: Electric Supercar Reveal",
+    id: "news-1",
+    category: "News",
+    categoryLabel: "News & Broadcast",
+    tag: "INVESTIGATIVE & DOCU-JOURNALISM",
+    title: "The Silicon Corridor",
     description:
-      "High-energy commercial cut with synchronized exhaust transients, hyper-speed transitions, and dynamic speed-ramped camera motion.",
-    deliverables: "Commercial Master • Cutdowns 30s/15s • Dolby 5.1 Mix",
-    duration: "01:30 Master",
-    videoSrc: "/videos/longform/promotional-2.mp4",
+      "Fast-turnaround investigative reporting packaged with network broadcast pacing, historical archival reconstruction, and fact-checking motion graphics.",
+    deliverables: "Documentary Feature • Archival Restoration • Lower-Thirds Package",
+    duration: "18:40 Report",
+    videoSrc: "/videos/longform/news-1.mp4",
     fallbackSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-cinematographer-operating-a-camera-with-a-monitor-40098-large.mp4",
+      "https://assets.mixkit.co/videos/preview/mixkit-cameraman-filming-a-street-scene-43348-large.mp4",
     poster:
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1600&q=80",
   },
 ];
 
@@ -122,6 +125,34 @@ const CATEGORIES = ["Podcast", "Commercial", "News"] as const;
 function LongFormCard({ project }: { project: LongFormProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let hls: Hls | null = null;
+
+    if (project.videoSrc.includes(".m3u8")) {
+      if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = project.videoSrc;
+      } else if (Hls.isSupported()) {
+        hls = new Hls({
+          enableWorker: true,
+          lowLatencyMode: true,
+        });
+        hls.loadSource(project.videoSrc);
+        hls.attachMedia(video);
+      }
+    } else {
+      video.src = project.videoSrc;
+    }
+
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
+  }, [project.videoSrc]);
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
