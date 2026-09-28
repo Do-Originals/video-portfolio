@@ -5,7 +5,7 @@ import RevealWrapper from "@/components/ui/RevealWrapper";
 
 interface LongFormProject {
   id: string;
-  category: "Podcast" | "Promotional" | "News" | "Graphics";
+  category: "Podcast" | "Promotional" | "News";
   categoryLabel: string;
   tag: string;
   title: string;
@@ -66,22 +66,7 @@ const PROJECTS: LongFormProject[] = [
     poster:
       "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1600&q=80",
   },
-  {
-    id: "graphics-1",
-    category: "Graphics",
-    categoryLabel: "Graphics & Motion Design",
-    tag: "3D & KINETIC IDENTITY",
-    title: "Neural Stream Broadcast Package",
-    description:
-      "Complete network motion graphics packaging, including 3D title openers, modular HUD data overlays, and typography toolkits for live broadcasts.",
-    deliverables: "3D Title Openers • Kinetic Lower-Thirds • Stream Toolkits",
-    duration: "Full Package",
-    videoSrc: "/videos/longform/graphics-1.mp4",
-    fallbackSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-graphs-42045-large.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80",
-  },
+
   {
     id: "podcast-2",
     category: "Podcast",
@@ -116,7 +101,7 @@ const PROJECTS: LongFormProject[] = [
   },
 ];
 
-const CATEGORIES = ["All", "Podcast", "Promotional", "News", "Graphics"] as const;
+const CATEGORIES = ["Podcast", "Promotional", "News"] as const;
 
 function LongFormCard({ project }: { project: LongFormProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -245,13 +230,10 @@ function LongFormCard({ project }: { project: LongFormProject }) {
 }
 
 export default function LongForm() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("Podcast");
   const railRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects =
-    activeCategory === "All"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeCategory);
+  const filteredProjects = PROJECTS.filter((p) => p.category === activeCategory);
 
   const scrollRail = (direction: "left" | "right") => {
     if (railRef.current) {
