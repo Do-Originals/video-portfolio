@@ -102,6 +102,23 @@ const PROJECTS: LongFormProject[] = [
     poster:
       "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1600&q=80",
   },
+  {
+    id: "podcast-3",
+    category: "Podcast",
+    categoryLabel: "Podcast",
+    tag: "EPISODIC & INTERVIEW",
+    title: "Executive Dialogue & Studio Master",
+    description:
+      "Full-length studio conversation with cinematic multi-angle framing, crystal clear audio mastering, and engaging visual pacing tailored for modern audiences.",
+    deliverables: "Multi-Angle Master • Dynamic Sound Mix • Color Grading",
+    duration: "45:10 Episode",
+    videoSrc:
+      "https://stream.mux.com/n802lAeSZ1fbAHpa7aE01OmN5P5BqbNvclWKNL025LgZOY.m3u8",
+    fallbackSrc:
+      "https://stream.mux.com/n802lAeSZ1fbAHpa7aE01OmN5P5BqbNvclWKNL025LgZOY.m3u8",
+    poster:
+      "https://image.mux.com/n802lAeSZ1fbAHpa7aE01OmN5P5BqbNvclWKNL025LgZOY/thumbnail.jpg?time=2",
+  },
 ];
 
 const CATEGORIES = ["Podcast", "Commercial"] as const;
