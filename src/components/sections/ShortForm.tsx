@@ -2,7 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import RevealWrapper from "@/components/ui/RevealWrapper";
-import { useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { FaVolumeHigh, FaVolumeXmark, FaPlay, FaPause } from "react-icons/fa6";
 
 interface ReelItem {
   id: string;
@@ -15,6 +16,7 @@ interface ReelItem {
   videoSrc: string;
   fallbackSrc: string;
   poster: string;
+  startOffset?: number;
 }
 
 const REELS: ReelItem[] = [
@@ -22,146 +24,380 @@ const REELS: ReelItem[] = [
     id: "politics-1",
     category: "Politics",
     categoryCode: "01",
-    title: "Campaign Momentum & Rhetoric",
-    hook: "Opening 1.5s hook retained 88% past intro cut.",
+    title: "Election Momentum & Rhetoric",
+    hook: "Punchy ideological contrast and sound design built to capture swing voters in 3 seconds.",
     metrics: "2.4M Views",
-    duration: "0:42",
-    videoSrc: "/videos/reels/politics-1.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-politician-speaking-at-a-press-conference-40890-large.mp4",
-    poster: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=800&q=80",
+    duration: "0:35",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video_fu8hyn.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video_fu8hyn.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_800,q_auto,f_auto/politics_video_fu8hyn.jpg",
+    startOffset: 1,
   },
   {
     id: "politics-2",
     category: "Politics",
     categoryCode: "02",
-    title: "Hot Mic Debate Breakdown",
-    hook: "Rapid cross-cuts timed to vocal cadence and sub-bass hits.",
-    metrics: "1.1M Views",
+    title: "Rally Breakdown & Crowd Pulse",
+    hook: "High-octane rally cuts synced to crowd reaction surges and hard-hitting sound effects.",
+    metrics: "1.8M Views",
     duration: "0:30",
-    videoSrc: "/videos/reels/politics-2.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-crowd-clapping-at-an-outdoor-event-43360-large.mp4",
-    poster: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video1_najt9y.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video1_najt9y.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/politics_video1_najt9y.jpg",
+  },
+  {
+    id: "politics-3",
+    category: "Politics",
+    categoryCode: "03",
+    title: "Policy Debate & Live Fact-Check",
+    hook: "Fast-turnaround kinetic motion graphics deconstructing key manifesto promises.",
+    metrics: "3.1M Views",
+    duration: "0:45",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video2_qizcpu.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video2_qizcpu.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_800,q_auto,f_auto/politics_video2_qizcpu.jpg",
+    startOffset: 1,
+  },
+  {
+    id: "politics-4",
+    category: "Politics",
+    categoryCode: "04",
+    title: "Leader Profile & Vision Arc",
+    hook: "Cinematic portrait storytelling framed to project decisive authority and public resonance.",
+    metrics: "2.1M Views",
+    duration: "0:40",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video3_jgedmf.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video3_jgedmf.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/politics_video3_jgedmf.jpg",
+  },
+  {
+    id: "politics-5",
+    category: "Politics",
+    categoryCode: "05",
+    title: "Voter Turnout & Grassroots Movement",
+    hook: "Dynamic pacing engineered to mobilize regional youth and community voter engagement.",
+    metrics: "1.5M Views",
+    duration: "0:32",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video4_toyc8q.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video4_toyc8q.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_800,q_auto,f_auto/politics_video4_toyc8q.jpg",
+    startOffset: 1,
+  },
+  {
+    id: "politics-6",
+    category: "Politics",
+    categoryCode: "06",
+    title: "Viral Soundbite & Debate Clash",
+    hook: "Unfiltered confrontation editing with kinetic typography driving massive cross-platform shares.",
+    metrics: "2.9M Views",
+    duration: "0:38",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video5_j4w1u6.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/politics_video5_j4w1u6.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/politics_video5_j4w1u6.jpg",
   },
   {
     id: "face-1",
     category: "Face",
-    categoryCode: "03",
-    title: "Founder Vision & Raw Monologue",
-    hook: "Personal brand narrative with film grain and dynamic kinetic type.",
-    metrics: "890K Views",
-    duration: "0:58",
-    videoSrc: "/videos/reels/face-1.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-young-man-talking-at-a-videoconference-42525-large.mp4",
-    poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "01",
+    title: "Founder Authority & Direct Hook",
+    hook: "Direct-to-camera storytelling crafted for high organic reach and trust.",
+    metrics: "1.2M Views",
+    duration: "0:45",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video_ucsi91.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video_ucsi91.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/face_video_ucsi91.jpg",
   },
   {
     id: "face-2",
     category: "Face",
-    categoryCode: "04",
-    title: "Keynote Punchline & Stage Energy",
-    hook: "Multi-cam reframing from a single 4K master angle.",
-    metrics: "1.5M Views",
+    categoryCode: "02",
+    title: "Expert Insight & Dynamic Cuts",
+    hook: "Punchy visual transitions and kinetic type holding viewer attention.",
+    metrics: "850K Views",
+    duration: "0:28",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video1_o5ebcr.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video1_o5ebcr.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/face_video1_o5ebcr.jpg",
+  },
+  {
+    id: "face-3",
+    category: "Face",
+    categoryCode: "03",
+    title: "Strategic Storytelling & Trust",
+    hook: "Engaging personal brand narrative built to turn viewers into warm leads.",
+    metrics: "1.6M Views",
     duration: "0:35",
-    videoSrc: "/videos/reels/face-2.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-man-speaking-at-a-business-meeting-43354-large.mp4",
-    poster: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video2_mve5k9.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video2_mve5k9.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/face_video2_mve5k9.jpg",
+  },
+  {
+    id: "face-4",
+    category: "Face",
+    categoryCode: "04",
+    title: "High-Retention Knowledge Drop",
+    hook: "Educational reel framed to establish instant authority in your niche.",
+    metrics: "920K Views",
+    duration: "0:32",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Face_video3_tk6xv4.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Face_video3_tk6xv4.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1.5,w_800,q_auto,f_auto/Face_video3_tk6xv4.jpg",
+    startOffset: 1,
   },
   {
     id: "info-1",
     category: "Info",
-    categoryCode: "05",
-    title: "Visual Essay: The Attention Economy",
-    hook: "Information dense motion graphics and bespoke SFX staging.",
-    metrics: "3.2M Views",
-    duration: "0:59",
-    videoSrc: "/videos/reels/info-1.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-42998-large.mp4",
-    poster: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "01",
+    title: "Brand Vision & Call to Action",
+    hook: "Polished dialogue editing engineered to drive direct customer inquiries.",
+    metrics: "2.1M Views",
+    duration: "0:52",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video4_f2pu5z.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/face_video4_f2pu5z.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/face_video4_f2pu5z.jpg",
   },
   {
     id: "info-2",
     category: "Info",
-    categoryCode: "06",
-    title: "Complex Systems in 45 Seconds",
-    hook: "Animated infographics keeping watch time over 105%.",
-    metrics: "940K Views",
+    categoryCode: "02",
+    title: "Visual Essay & Information Density",
+    hook: "Kinetic infographic pacing structured to hold watch time above 110%.",
+    metrics: "3.4M Views",
     duration: "0:45",
-    videoSrc: "/videos/reels/info-2.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-graphs-42045-large.mp4",
-    poster: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video_u2qj0f.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video_u2qj0f.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/info_video_u2qj0f.jpg",
+  },
+  {
+    id: "info-3",
+    category: "Info",
+    categoryCode: "03",
+    title: "Data Breakdown & Analytical Cut",
+    hook: "Bespoke animated charts and rapid text overlays translating complex insights instantly.",
+    metrics: "1.9M Views",
+    duration: "0:38",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video1_oc6zs8.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video1_oc6zs8.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/info_video1_oc6zs8.jpg",
+  },
+  {
+    id: "info-4",
+    category: "Info",
+    categoryCode: "04",
+    title: "Deep Dive Systems & Modern Frameworks",
+    hook: "Layered sound staging and micro-animations guiding viewers through high-retention concepts.",
+    metrics: "2.7M Views",
+    duration: "0:42",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video2_cntvyd.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video2_cntvyd.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_800,q_auto,f_auto/info_video2_cntvyd.jpg",
+    startOffset: 1,
+  },
+  {
+    id: "info-5",
+    category: "Info",
+    categoryCode: "05",
+    title: "Narrative Explainer & Fact Breakdown",
+    hook: "Documentary-grade investigative rhythm engineered for seamless engagement and retention.",
+    metrics: "1.6M Views",
+    duration: "0:36",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video3_ueawtv.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/info_video3_ueawtv.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/info_video3_ueawtv.jpg",
   },
   {
     id: "ai-1",
     category: "AI",
-    categoryCode: "07",
-    title: "Generative Cinema: The Synthetic World",
-    hook: "Midjourney to Runway sequence graded to 35mm film emulation.",
-    metrics: "4.1M Views",
-    duration: "0:28",
-    videoSrc: "/videos/reels/ai-1.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-animation-of-futuristic-circuits-and-shapes-42407-large.mp4",
-    poster: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "01",
+    title: "Generative AI Visual Synthesis",
+    hook: "Next-gen AI visual worldbuilding styled for premium commercial ads.",
+    metrics: "3.4M Views",
+    duration: "0:25",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video_acbo1t.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video_acbo1t.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/Ai_video_acbo1t.jpg",
   },
   {
     id: "ai-2",
     category: "AI",
-    categoryCode: "08",
-    title: "Neural VFX & Surreal Match Cuts",
-    hook: "High-tempo AI morphs designed for loop completion.",
-    metrics: "1.7M Views",
-    duration: "0:38",
-    videoSrc: "/videos/reels/ai-2.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-animation-43098-large.mp4",
-    poster: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "02",
+    title: "Neural Motion & Surreal Cut",
+    hook: "Seamless AI morphing sequences engineered for maximum viewer retention.",
+    metrics: "2.8M Views",
+    duration: "0:30",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/ai_video1_vzml7m.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/ai_video1_vzml7m.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/ai_video1_vzml7m.jpg",
+  },
+  {
+    id: "ai-3",
+    category: "AI",
+    categoryCode: "03",
+    title: "Synthetic Product Storytelling",
+    hook: "Hyper-realistic AI visual effects and lighting for modern brand marketing.",
+    metrics: "1.9M Views",
+    duration: "0:28",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video2_df34k4.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video2_df34k4.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/Ai_video2_df34k4.jpg",
+  },
+  {
+    id: "ai-4",
+    category: "AI",
+    categoryCode: "04",
+    title: "Futuristic Cinematic Render",
+    hook: "Midjourney to Runway sequence graded to commercial film standards.",
+    metrics: "4.2M Views",
+    duration: "0:32",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video3_fakoai.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/Ai_video3_fakoai.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/Ai_video3_fakoai.jpg",
   },
   {
     id: "clients-1",
     category: "Clients",
-    categoryCode: "09",
-    title: "E-Commerce Brand Campaign",
-    hook: "Direct-response pacing lifting ROAS by 3.4x in the first 7 days.",
-    metrics: "2.1M Views",
-    duration: "0:30",
-    videoSrc: "/videos/reels/clients-1.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-green-screen-42353-large.mp4",
-    poster: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "01",
+    title: "Iman Gadzhi Style Documentary Trailer",
+    hook: "Retention-first pacing, bespoke film textures, and cinematic kinetic graphics driving elite conversions.",
+    metrics: "2.8M Views",
+    duration: "0:38",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/iman_gadhzi_trail_021_tjl8ab.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/iman_gadhzi_trail_021_tjl8ab.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1,w_800,q_auto,f_auto/iman_gadhzi_trail_021_tjl8ab.jpg",
   },
   {
     id: "clients-2",
     category: "Clients",
-    categoryCode: "10",
-    title: "D2C Founder Story & Launch",
-    hook: "Raw documentary pacing turned 10K waitlist into paying customers.",
-    metrics: "1.8M Views",
-    duration: "0:45",
-    videoSrc: "/videos/reels/clients-2.mp4",
-    fallbackSrc: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-working-at-a-laptop-in-an-office-42880-large.mp4",
-    poster: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+    categoryCode: "02",
+    title: "3D Map Motion & Narrative Animation",
+    hook: "Bespoke 3D terrain motion graphics and animated route tracking transforming complex data into a visual story.",
+    metrics: "1.9M Views",
+    duration: "0:30",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/MAP_animation_changess_wyhumm.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/MAP_animation_changess_wyhumm.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1.5,w_800,q_auto,f_auto/MAP_animation_changess_wyhumm.jpg",
+    startOffset: 1,
+  },
+  {
+    id: "clients-3",
+    category: "Clients",
+    categoryCode: "03",
+    title: "On-Set Production & BTS Reel",
+    hook: "Dynamic insider perspective contrasting live production sets with polished commercial post-finishing.",
+    metrics: "1.4M Views",
+    duration: "0:42",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/BTS_3_q2dz0y.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/BTS_3_q2dz0y.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_2,w_800,q_auto,f_auto/BTS_3_q2dz0y.jpg",
+    startOffset: 1.5,
+  },
+  {
+    id: "clients-4",
+    category: "Clients",
+    categoryCode: "04",
+    title: "Signature Brand Commercial Intro",
+    hook: "Impactful identity reveal engineered with punchy glitch sound design and high-contrast typography.",
+    metrics: "3.1M Views",
+    duration: "0:20",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/DO_NEW_INTT_dsvfqo.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/DO_NEW_INTT_dsvfqo.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/DO_NEW_INTT_dsvfqo.jpg",
+  },
+  {
+    id: "clients-5",
+    category: "Clients",
+    categoryCode: "05",
+    title: "Festive Campaign & Cultural Storytelling",
+    hook: "Emotion-driven brand film blending cultural nostalgia, warm palette grading, and e-commerce conversion hooks.",
+    metrics: "2.3M Views",
+    duration: "0:48",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/RAKHI_mtezam.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/RAKHI_mtezam.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/RAKHI_mtezam.jpg",
+  },
+  {
+    id: "clients-6",
+    category: "Clients",
+    categoryCode: "06",
+    title: "Sid RW High-Velocity Authority Reel",
+    hook: "High-octane jump cuts, speed-ramped transitions, and kinetic sound design engineered for viral reach.",
+    metrics: "1.7M Views",
+    duration: "0:34",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/SID_RW_REEL_syvxtj.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/SID_RW_REEL_syvxtj.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/SID_RW_REEL_syvxtj.jpg",
+  },
+  {
+    id: "clients-7",
+    category: "Clients",
+    categoryCode: "07",
+    title: "Varceli Luxury Fashion & Apparel",
+    hook: "Sophisticated editorial grading, seamless product transitions, and modern luxury brand aesthetics.",
+    metrics: "3.5M Views",
+    duration: "0:30",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/VARCELI_changess...2_whg2w9.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/VARCELI_changess...2_whg2w9.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_1.5,w_800,q_auto,f_auto/VARCELI_changess...2_whg2w9.jpg",
+    startOffset: 1,
+  },
+  {
+    id: "clients-8",
+    category: "Clients",
+    categoryCode: "08",
+    title: "CMAI National Trade Fair Campaign",
+    hook: "Large-scale industry event recap featuring dynamic lower-thirds, broadcast motion graphics, and strong CTAs.",
+    metrics: "1.2M Views",
+    duration: "0:35",
+    videoSrc: "https://res.cloudinary.com/akjttfwt/video/upload/CMAI_New_End_Slide_kyzy7j.mp4",
+    fallbackSrc: "https://res.cloudinary.com/akjttfwt/video/upload/CMAI_New_End_Slide_kyzy7j.mp4",
+    poster: "https://res.cloudinary.com/akjttfwt/video/upload/so_0,w_800,q_auto,f_auto/CMAI_New_End_Slide_kyzy7j.jpg",
   },
 ];
 
-const CATEGORIES = ["All", "Politics", "Face", "Info", "AI", "Clients"] as const;
+const CATEGORIES = ["Politics", "Face", "Info", "AI", "Clients"] as const;
+
+const CATEGORY_COUNTS: Record<string, number> = {
+  Politics: REELS.filter((r) => r.category === "Politics").length,
+  Face: REELS.filter((r) => r.category === "Face").length,
+  Info: REELS.filter((r) => r.category === "Info").length,
+  AI: REELS.filter((r) => r.category === "AI").length,
+  Clients: REELS.filter((r) => r.category === "Clients").length,
+};
 
 function ReelTile({ item }: { item: ReelItem }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(cardRef, { amount: 0.6 });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  // Set initial seek to startOffset once metadata loads so video frame isn't black
+  const handleLoadedMetadata = () => {
+    if (videoRef.current && item.startOffset) {
+      videoRef.current.currentTime = item.startOffset;
+    }
+  };
 
   // Mobile: Autoplay when tile is >60% in view
   useEffect(() => {
     const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
     if (isTouch && videoRef.current) {
       if (isInView) {
+        if (item.startOffset && videoRef.current.currentTime < item.startOffset) {
+          videoRef.current.currentTime = item.startOffset;
+        }
         videoRef.current.play().catch(() => {});
       } else {
         videoRef.current.pause();
       }
     }
-  }, [isInView]);
+  }, [isInView, item.startOffset]);
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
+      if (item.startOffset && videoRef.current.currentTime < item.startOffset) {
+        videoRef.current.currentTime = item.startOffset;
+      }
       videoRef.current.play().catch(() => {});
     }
   };
@@ -169,88 +405,103 @@ function ReelTile({ item }: { item: ReelItem }) {
   const handleMouseLeave = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      videoRef.current.currentTime = item.startOffset || 0;
+    }
+  };
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        if (item.startOffset && videoRef.current.currentTime < item.startOffset) {
+          videoRef.current.currentTime = item.startOffset;
+        }
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
     }
   };
 
   return (
     <div
       ref={cardRef}
+      onClick={togglePlay}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative aspect-[9/16] w-[260px] sm:w-[290px] md:w-[320px] shrink-0 snap-start overflow-hidden border border-line bg-ink transition-all duration-500 ease-out hover:scale-[1.03] hover:border-accent/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.85)] cursor-pointer"
+      className="group relative aspect-[9/16] w-[240px] sm:w-[265px] md:w-[285px] shrink-0 snap-start overflow-hidden rounded-[2rem] sm:rounded-[2.2rem] border-[3.5px] border-white/85 bg-ink p-0.5 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_20px_rgba(255,255,255,0.08)] transition-all duration-500 ease-out hover:scale-[1.03] hover:border-white hover:shadow-[0_25px_65px_rgba(0,0,0,0.95),0_0_35px_rgba(214,17,108,0.3)] cursor-pointer select-none"
     >
-      {/* Video Preview */}
-      <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        poster={item.poster}
-        preload="metadata"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        className="h-full w-full object-cover transition-opacity duration-300"
-      >
-        <source src={item.videoSrc} type="video/mp4" />
-        <source src={item.fallbackSrc} type="video/mp4" />
-      </video>
+      {/* Inner Video Clipping Area */}
+      <div className="relative h-full w-full overflow-hidden rounded-[1.7rem] sm:rounded-[1.9rem] bg-black">
+        {/* Video Preview */}
+        <video
+          ref={videoRef}
+          muted={isMuted}
+          loop
+          playsInline
+          poster={item.poster}
+          preload="metadata"
+          onLoadedMetadata={handleLoadedMetadata}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        >
+          <source src={item.videoSrc} type="video/mp4" />
+          <source src={item.fallbackSrc} type="video/mp4" />
+        </video>
 
-      {/* Static Poster Backdrop Overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-75" />
+        {/* Subtle dark bottom gradient for high-contrast control visibility */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-      {/* Top Meta: Duration & Live Indicator */}
-      <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
-        <span className="eyebrow bg-ink/70 backdrop-blur-md px-2 py-0.5 text-[10px] text-paper-dim border border-line/60">
-          {item.duration}
-        </span>
-        <div className="flex items-center gap-1.5 bg-ink/70 backdrop-blur-md px-2 py-0.5 border border-line/60">
-          <span
-            className={`h-1.5 w-1.5 rounded-full transition-colors ${
-              isPlaying ? "bg-accent animate-pulse" : "bg-paper-dim/60"
-            }`}
-          />
-          <span className="text-[10px] font-mono uppercase tracking-wider text-paper-dim">
-            {isPlaying ? "PLAYING" : "PREVIEW"}
-          </span>
-        </div>
+        {/* Prominent Middle Play Button (When Stopped / Initial Load) */}
+        {!isPlaying && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/35 backdrop-blur-[1px] transition-all">
+            <div className="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white backdrop-blur-md shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-accent group-hover:bg-black/80 group-hover:text-accent">
+              <FaPlay className="ml-1 text-lg sm:text-xl" />
+            </div>
+          </div>
+        )}
+
+        {/* Middle Pause Indicator on Hover (When Playing) */}
+        {isPlaying && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/55 text-white backdrop-blur-md shadow-xl">
+              <FaPause className="text-base text-white" />
+            </div>
+          </div>
+        )}
+
+        {/* Mute / Unmute Button in Bottom Right (Matching Hero) */}
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={isMuted ? "Unmute reel" : "Mute reel"}
+          className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-3.5 z-30 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white backdrop-blur-md shadow-lg transition-all duration-200 hover:scale-105 hover:bg-black/70 hover:border-white/60 active:scale-95"
+        >
+          {isMuted ? (
+            <FaVolumeXmark className="text-xs text-white" />
+          ) : (
+            <FaVolumeHigh className="text-xs text-accent animate-pulse" />
+          )}
+        </button>
       </div>
-
-      {/* Bottom Overlaid Details: Category Label, Title, Metrics */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 space-y-2 pointer-events-none z-10">
-        <div className="flex items-center gap-2">
-          <span className="eyebrow text-accent font-mono text-[11px]">
-            {item.category.toUpperCase()} • {item.categoryCode}
-          </span>
-          <span className="h-px w-4 bg-accent/40" />
-          <span className="text-[10px] font-mono text-paper-dim uppercase">
-            {item.metrics}
-          </span>
-        </div>
-
-        <h3 className="font-display text-lg sm:text-xl font-light text-paper tracking-tight leading-snug group-hover:text-white transition-colors">
-          {item.title}
-        </h3>
-
-        <p className="text-xs text-paper-dim line-clamp-2 leading-relaxed">
-          {item.hook}
-        </p>
-      </div>
-
-      {/* Subtle hairline hover border highlight */}
-      <div className="pointer-events-none absolute inset-0 border border-transparent transition-colors duration-300 group-hover:border-accent/40" />
     </div>
   );
 }
 
 export default function ShortForm() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("Politics");
   const railRef = useRef<HTMLDivElement>(null);
 
-  const filteredReels =
-    activeCategory === "All"
-      ? REELS
-      : REELS.filter((r) => r.category === activeCategory);
+  const filteredReels = REELS.filter((r) => r.category === activeCategory);
 
   const scrollRail = (direction: "left" | "right") => {
     if (railRef.current) {
@@ -271,72 +522,117 @@ export default function ShortForm() {
             {/* Heading spanning 7 cols */}
             <div className="col-span-12 lg:col-span-7 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-accent">01 / SHORT FORM</span>
+                <span className="eyebrow text-accent">SHORT FORM & REELS</span>
                 <span className="h-px w-8 bg-accent/40" />
               </div>
               <h2 className="headline-display text-paper">
-                Made for the <span className="italic font-light text-paper">scroll.</span>
+                Reels that get your business{" "}
+                <span className="italic font-light text-paper">noticed.</span>
               </h2>
             </div>
 
             {/* Right-aligned supporting line spanning 5 cols */}
             <div className="col-span-12 lg:col-span-5 lg:text-right space-y-4">
               <p className="max-w-md lg:ml-auto text-sm sm:text-base text-paper-dim leading-relaxed">
-                Pacing, sound staging, and visual hooks engineered to hold retention past the critical 3-second dropoff.
+                Short, high-impact videos designed to capture local attention, build trust, and turn everyday viewers into loyal customers.
               </p>
             </div>
           </div>
 
           {/* Category Tabs & Manual Scroll Navigation Bar */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-10 border-t border-line mt-10">
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap items-center gap-2">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`eyebrow px-3.5 py-1.5 rounded-full border text-xs transition-all duration-200 cursor-pointer ${
-                    activeCategory === cat
-                      ? "border-accent bg-accent/15 text-paper"
-                      : "border-line bg-paper/[0.02] text-paper-dim hover:border-paper/40 hover:text-paper"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+            {/* Category Filter Pills (No 'All' tab - tap to reveal videos) */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              {CATEGORIES.map((cat) => {
+                const isSelected = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    suppressHydrationWarning
+                    onClick={() => setActiveCategory(cat)}
+                    className={`eyebrow px-4 py-2 rounded-full border text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                      isSelected
+                        ? "border-accent bg-accent/20 text-paper shadow-[0_0_20px_rgba(214,17,108,0.3)] scale-105"
+                        : "border-line bg-paper/[0.02] text-paper-dim hover:border-paper/40 hover:text-paper"
+                    }`}
+                  >
+                    <span>{cat}</span>
+                    <span suppressHydrationWarning className="text-[10px] font-mono text-paper-dim/70">
+                      {`(${CATEGORY_COUNTS[cat] ?? 0})`}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Rail Arrows */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => scrollRail("left")}
-                aria-label="Scroll left"
-                className="flex h-9 w-9 items-center justify-center border border-line text-paper-dim transition-colors hover:border-accent hover:text-accent cursor-pointer"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollRail("right")}
-                aria-label="Scroll right"
-                className="flex h-9 w-9 items-center justify-center border border-line text-paper-dim transition-colors hover:border-accent hover:text-accent cursor-pointer"
-              >
-                →
-              </button>
-            </div>
+            {/* Rail Arrows (Only visible when a category is selected) */}
+            {activeCategory && (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => scrollRail("left")}
+                  aria-label="Scroll left"
+                  className="flex h-9 w-9 items-center justify-center border border-line text-paper-dim transition-colors hover:border-accent hover:text-accent cursor-pointer"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollRail("right")}
+                  aria-label="Scroll right"
+                  className="flex h-9 w-9 items-center justify-center border border-line text-paper-dim transition-colors hover:border-accent hover:text-accent cursor-pointer"
+                >
+                  →
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Horizontal-Scroll Rail: Vertical 9:16 Video Preview Tiles */}
-        <div
-          ref={railRef}
-          className="flex gap-6 overflow-x-auto px-[clamp(1.5rem,5vw,6rem)] pb-8 pt-2 scroll-smooth [scroll-snap-type:x_mandatory] [scrollbar-width:thin] [scrollbar-color:rgba(237,234,227,0.2)_transparent]"
-        >
-          {filteredReels.map((reel) => (
-            <ReelTile key={reel.id} item={reel} />
-          ))}
-        </div>
+        {/* Video Appearance Area (Appears on Tab Tap/Click) */}
+        <AnimatePresence mode="wait">
+          {!activeCategory ? (
+            <motion.div
+              key="prompt"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="portfolio-grid-container py-14 md:py-20"
+            >
+              <div className="flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-2xl border border-dashed border-line bg-paper/[0.015] max-w-xl mx-auto">
+                <div className="h-12 w-12 rounded-full border border-accent/40 bg-accent/10 flex items-center justify-center text-accent mb-4">
+                  <span className="text-xl">▶</span>
+                </div>
+                <h3 className="font-display text-lg sm:text-xl text-paper mb-2">
+                  Select a category to view reels
+                </h3>
+                <p className="text-xs sm:text-sm text-paper-dim max-w-sm">
+                  Click on any tab above (Politics, Face, Info, AI, Clients) to see the reels.
+                </p>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
+              className="pt-2"
+            >
+              {/* Horizontal-Scroll Rail: Vertical 9:16 Video Preview Tiles */}
+              <div
+                ref={railRef}
+                className="flex gap-6 overflow-x-auto px-[clamp(1.5rem,5vw,6rem)] pb-8 pt-2 scroll-smooth [scroll-snap-type:x_mandatory] [scrollbar-width:thin] [scrollbar-color:rgba(237,234,227,0.2)_transparent]"
+              >
+                {filteredReels.map((reel) => (
+                  <ReelTile key={reel.id} item={reel} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </RevealWrapper>
     </section>
   );
