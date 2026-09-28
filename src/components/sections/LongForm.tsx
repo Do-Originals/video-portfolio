@@ -6,7 +6,7 @@ import Hls from "hls.js";
 
 interface LongFormProject {
   id: string;
-  category: "Podcast" | "Commercial" | "News";
+  category: "Podcast" | "Commercial";
   categoryLabel: string;
   tag: string;
   title: string;
@@ -102,25 +102,9 @@ const PROJECTS: LongFormProject[] = [
     poster:
       "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1600&q=80",
   },
-  {
-    id: "news-1",
-    category: "News",
-    categoryLabel: "News & Broadcast",
-    tag: "INVESTIGATIVE & DOCU-JOURNALISM",
-    title: "The Silicon Corridor",
-    description:
-      "Fast-turnaround investigative reporting packaged with network broadcast pacing, historical archival reconstruction, and fact-checking motion graphics.",
-    deliverables: "Documentary Feature • Archival Restoration • Lower-Thirds Package",
-    duration: "18:40 Report",
-    videoSrc: "/videos/longform/news-1.mp4",
-    fallbackSrc:
-      "https://assets.mixkit.co/videos/preview/mixkit-cameraman-filming-a-street-scene-43348-large.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1600&q=80",
-  },
 ];
 
-const CATEGORIES = ["Podcast", "Commercial", "News"] as const;
+const CATEGORIES = ["Podcast", "Commercial"] as const;
 
 function LongFormCard({ project }: { project: LongFormProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);
