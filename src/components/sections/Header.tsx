@@ -10,8 +10,8 @@ import { FaWhatsapp } from "react-icons/fa6";
 const NAV_LINKS = [
   { name: "Work", href: "#work", index: "01" },
   { name: "Reels", href: "#reels", index: "02" },
-  // { name: "About", href: "#about", index: "03" },
-  { name: "Contact", href: "#contact", index: "03" },
+  { name: "About", href: "#about", index: "03" },
+  { name: "Contact", href: "#contact", index: "04" },
 ];
 
 const WHATSAPP_LINK =

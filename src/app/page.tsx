@@ -3,7 +3,7 @@ import Hero from "@/components/sections/Hero";
 import ShortForm from "@/components/sections/ShortForm";
 import LongForm from "@/components/sections/LongForm";
 import ClientMarquee from "@/components/sections/ClientMarquee";
-// import About from "@/components/sections/About";
+import About from "@/components/sections/About";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -14,8 +14,7 @@ export default function Home() {
       <ShortForm />
       <LongForm />
       <ClientMarquee />
-      {/* Team section temporarily hidden - uncomment when ready to restore */}
-      {/* <About /> */}
+      <About />
       <Footer />
     </main>
   );

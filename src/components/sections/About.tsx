@@ -8,35 +8,37 @@ import { FiMail } from "react-icons/fi";
 
 interface TeamMember {
   name: string;
-  role: string;
-  specialty: string;
   image: string;
+  objectPosition?: string;
+  role?: string;
+  specialty?: string;
 }
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
+    name: "Vikrant Nalawade",
+    role: "Creative Director",
+    specialty: "Visual Direction • Cinematic Framing",
+    image: "/team/vikrant.jpg",
+    objectPosition: "object-top",
+  },
+  {
     name: "Omkar Potphode",
     role: "Founder & Lead Editor",
     specialty: "Editorial Pacing • Retention Architecture",
-    image: "/team/team-1.jpg",
+    image: "/team/omkar.jpg",
   },
   {
-    name: "Priya Sharma",
-    role: "Creative Director",
-    specialty: "Visual Direction • Cinematic Framing",
-    image: "/team/team-2.jpg",
-  },
-  {
-    name: "Rohan Varma",
+    name: "Ravi Thorat",
     role: "Senior Motion Lead",
     specialty: "3D Animation • Kinetic Typography",
-    image: "/team/team-3.jpg",
+    image: "/team/ravi.jpg",
   },
   {
-    name: "Kabir Sen",
+    name: "Hitesh Mhatre",
     role: "Sound & Color Architect",
     specialty: "Tactile Foley • ACES Color Science",
-    image: "/team/team-4.jpg",
+    image: "/team/hitesh.jpg",
   },
 ];
 
@@ -96,43 +98,25 @@ export default function About() {
             <RevealWrapper
               key={member.name}
               delay={idx * 0.08}
-              className="group flex flex-col space-y-4"
+              className="group relative flex flex-col items-center rounded-3xl border border-line bg-paper/[0.02] p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-500 hover:border-accent/40 hover:bg-paper/[0.04] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(214,17,108,0.15)] text-center"
             >
-              {/* 1:1 Square Image Container */}
-              <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-line bg-paper/[0.02] shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-300 group-hover:border-accent/40">
+              {/* Exact 3:4 Instagram Portrait Ratio Frame (960x1280) */}
+              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-line/70 bg-paper/[0.04] shadow-[0_15px_35px_rgba(0,0,0,0.3)]">
                 <Image
                   src={member.image}
                   alt={member.name}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover filter grayscale-[15%] transition-all duration-500 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                  className={`object-cover ${member.objectPosition || "object-center"} transition-transform duration-500 ease-out group-hover:scale-105`}
+                  priority
                 />
-
-                {/* Subtle vignette gradient at base of square */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
-
-                {/* Corner accent marker */}
-                <div className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-accent/70 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-125" />
               </div>
 
-              {/* Member Details */}
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-lg sm:text-xl text-paper font-normal transition-colors duration-200 group-hover:text-accent">
-                    {member.name}
-                  </h3>
-                  <span className="font-mono text-[10px] text-paper-dim/60">
-                    0{idx + 1}
-                  </span>
-                </div>
-
-                <p className="font-mono text-xs uppercase tracking-wider text-accent font-medium">
-                  {member.role}
-                </p>
-
-                <p className="text-xs text-paper-dim font-light pt-0.5">
-                  {member.specialty}
-                </p>
+              {/* Name - exact gradient typography from masterclass.dooriginals.com */}
+              <div className="pt-4 pb-1">
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent via-pink-400 to-accent transition-all duration-300">
+                  {member.name}
+                </h3>
               </div>
             </RevealWrapper>
           ))}
